@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import constants from '../config/constants';
 
 import { ResponseStatusCodes } from '../utils/types/response_handler.utils';
@@ -45,7 +46,7 @@ const singup = async (req: Request, res: Response) => {
     return sendResponse(
       {
         status_code: ResponseStatusCodes.BAD_REQUEST,
-        errors: ['Please provide all the required parameters.'],
+        errors: ['Please provide all the required parameters'],
       },
       res
     );
@@ -89,6 +90,48 @@ const singup = async (req: Request, res: Response) => {
   }
 };
 
+const login = async (req: Request, res: Response) => {
+  const allowedParameters = ['password', 'email'];
+  const userData = filterParameters(req.body, allowedParameters);
+  if (!requiredParametersProvided(userData, allowedParameters, [])) {
+    return sendResponse(
+      {
+        status_code: ResponseStatusCodes.BAD_REQUEST,
+        errors: ['Please provide all the required parameters.'],
+      },
+      res
+    );
+  }
+  const userService = new AuthService();
+  const user = await userService.getOne({
+    email: (userData.email ?? '').toLowerCase(),
+  });
+
+  const passwordMatched = await bcrypt.compare(
+    userData.password,
+    user?.password ?? ''
+  );
+
+  if (!user || !passwordMatched) {
+    return sendResponse(
+      {
+        status_code: ResponseStatusCodes.BAD_REQUEST,
+        errors: ['incorrect email or password'],
+      },
+      res
+    );
+  } else {
+    return sendResponse(
+      {
+        status_code: ResponseStatusCodes.OK,
+        data: { user },
+      },
+      res
+    );
+  }
+};
+
 export default {
   singup,
+  login,
 };

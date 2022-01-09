@@ -2,7 +2,6 @@ import {
   CreateResponseOptions,
   ResponseStatusCodes,
 } from './types/response_handler.utils';
-import { RequestUpload } from '../middlewares/types/file_upload.middleware';
 import { Response } from 'express';
 
 export function sendResponse(

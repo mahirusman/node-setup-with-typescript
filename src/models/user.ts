@@ -81,16 +81,6 @@ class UserClass extends Model {
     }
     return null;
   }
-  get individualNames() {
-    if (this.full_name) {
-      const splittedNames = this.full_name.split(' ');
-      return {
-        firstName: splittedNames[0],
-        lastName: splittedNames[0],
-      };
-    }
-    return null;
-  }
 }
 
 schema.loadClass(UserClass);
