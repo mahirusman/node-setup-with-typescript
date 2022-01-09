@@ -56,7 +56,6 @@ const singup = async (req: Request, res: Response) => {
   const registeredUser = await userService.getOne({
     email,
   });
-  console.log('registeredUser ', registeredUser);
 
   if (registeredUser) {
     return sendResponse(
@@ -77,19 +76,17 @@ const singup = async (req: Request, res: Response) => {
   };
 
   const result = await userService.create(parameters);
-
-  console.log('result ', result);
-  // if(result.id){
-  //   const result = await userService.getOneById();
-  // }
-
-  sendResponse(
-    {
-      status_code: ResponseStatusCodes.OK,
-      messages: ['user register successfully'],
-    },
-    res
-  );
+  if (result.status) {
+    const user = await userService.getOne({ _id: result.id });
+    return sendResponse(
+      {
+        status_code: ResponseStatusCodes.OK,
+        data: { user },
+        messages: ['user register successfully'],
+      },
+      res
+    );
+  }
 };
 
 export default {

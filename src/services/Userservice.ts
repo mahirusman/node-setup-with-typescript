@@ -23,6 +23,7 @@ class UserService extends Baseservice<IUserDocument> {
       });
       return {
         status: !!result?._id,
+        id: result?._id ?? '',
       };
     } catch (error) {
       return {
