@@ -1,7 +1,7 @@
 export interface Update {
   status: boolean;
   id?: string;
-  errors?: Array<string>;
+  errors?: string[];
   messages?: Array<string>;
 }
 export interface Retrieve {

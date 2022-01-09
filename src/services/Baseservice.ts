@@ -50,12 +50,12 @@ class MainService<T extends Document> {
 
   /** Delete first matching document  */
   async deleteOne(criteria: FilterQuery<T>): Promise<DeleteResponse> {
-    // return await this.collection.deleteOne(criteria);
+    return await this.collection.deleteOne(criteria);
   }
 
   /** Delete all "matching" document  */
   async deleteMany(criteria: FilterQuery<T>): Promise<DeleteResponse> {
-    // return await this.collection.deleteMany(criteria);
+    return await this.collection.deleteMany(criteria);
   }
 
   /** Update first matching document  */

@@ -1,13 +1,25 @@
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 dotenv.config();
 import app from './app';
 
 import constants from './config/constants';
 
-mongoose.connect(constants.mongourl).then((con) => {
-  console.log('database is connected successfully');
-});
+mongoose.connect(
+  constants.mongourl,
+  {
+    useNewUrlParser: true,
+
+    useUnifiedTopology: true,
+  } as ConnectOptions,
+  (error) => {
+    if (error) {
+      console.info('Error while connecting with database ', error);
+    } else {
+      console.info('DB connected successfulyy');
+    }
+  }
+);
 
 const PORT = process.env.PORT || 5000;
 

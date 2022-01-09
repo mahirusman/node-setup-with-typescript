@@ -1,8 +1,4 @@
-import {
-  IUserDocument,
-  Roles,
-  SocialPlatforms,
-} from '../../models/types/user.model';
+import { IUserDocument, Roles } from '../../models/types/user.model';
 
 export interface InputDataCreate {
   first_name: string;
@@ -11,8 +7,6 @@ export interface InputDataCreate {
   password: string;
   phone?: string;
   role?: Roles;
-  social_platform?: SocialPlatforms;
-  device_id?: string;
 }
 export interface InputDataUpdatePhone {
   phone: string;
