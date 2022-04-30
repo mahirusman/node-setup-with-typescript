@@ -1,10 +1,5 @@
-import {
-  AllowedParameters,
-  DecodeUser,
-  RequestBody,
-} from './types/response_handler.utils';
-import UserService from '../services/Userservice';
-import jwt from 'jsonwebtoken';
+import UserService from "../services/Userservice";
+import jwt from "jsonwebtoken";
 
 export function filterParameters(
   requestBody: RequestBody,
@@ -14,7 +9,7 @@ export function filterParameters(
   //  if req.body is null or undefined
   requestBody = requestBody ?? {};
   allowedParameters.forEach((allowedParameters) => {
-    if (typeof requestBody[allowedParameters] !== 'undefined') {
+    if (typeof requestBody[allowedParameters] !== "undefined") {
       result[allowedParameters] = requestBody[allowedParameters];
     }
   });
